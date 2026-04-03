@@ -1,0 +1,58 @@
+# 策略参数配置
+
+# Dual Thrust 突破策略
+dual_thrust:
+  k1: 0.4          # 上通道系数
+  k2: 0.6          # 下通道系数
+  n: 4             # 回溯周期
+  period: 5        # K线周期(分钟)
+  stop_loss_atr: 2.0  # ATR止损倍数
+
+# 均值回归策略
+mean_revert:
+  bollinger:
+    period: 20
+    std_dev: 2.0
+  rsi:
+    period: 14
+    overbought: 70
+    oversold: 30
+  stop_loss_atr: 1.5
+
+# 组合策略
+combo:
+  adx:
+    period: 14
+    trend_threshold: 25     # ADX > 25 认为趋势
+    range_threshold: 20     # ADX < 20 认为震荡
+  default_strategy: mean_revert  # 默认策略
+
+# 交易时间配置
+trading_hours:
+  day_session:
+    start: "09:00"
+    end: "11:30"
+    strategy: mean_revert
+  afternoon:
+    start: "13:30"
+    end: "15:00"
+    strategy: observe  # 观察模式
+  night_session:
+    start: "21:00"
+    end: "02:30"
+    strategy: dual_thrust  # 活跃时段用突破
+
+# 品种配置
+symbols:
+  - code: AU
+    name: 黄金
+    exchange: SHFE
+    enabled: true
+    lot_size: 1000  # 克/手
+    margin_rate: 0.08  # 保证金比例
+  - code: AG
+    name: 白银
+    exchange: SHFE
+    enabled: true
+    lot_size: 15   # 千克/手
+    margin_rate: 0.08

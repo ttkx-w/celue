@@ -1,0 +1,36 @@
+# 风控参数配置
+
+# 仓位管理
+position:
+  max_risk_per_trade: 0.02    # 单笔最大风险 2%
+  max_position_pct: 0.20      # 单品种最大仓位 20%
+  max_total_position: 0.40    # 总仓位上限 40%
+  min_lot: 1                  # 最小开仓手数
+
+# 止损止盈
+stop_loss:
+  type: atr                   # ATR动态止损
+  atr_multiplier: 2.0         # 止损距离 = ATR * 倍数
+  trailing: true              # 追踪止损
+  max_loss_pct: 0.05          # 单笔最大亏损百分比
+
+# 日内风控
+daily:
+  max_loss: 0.05              # 日最大亏损 5%
+  max_trades: 10              # 日最大交易次数
+  force_close: true           # 收盘前强制平仓
+  close_time: "14:55"         # 日盘平仓时间
+  night_close_time: "02:25"   # 夜盘平仓时间
+
+# 异常处理
+emergency:
+  max_slippage: 3             # 最大允许滑点(跳)
+  order_timeout: 30           # 订单超时(秒)
+  reconnect_attempts: 3       # 断线重连次数
+  kill_switch: true           # 紧急停止开关
+
+# 资金管理
+capital:
+  initial: 100000             # 初始资金
+  reserve: 0.10               # 预留资金比例
+  leverage_limit: 3           # 最大杠杆倍数
